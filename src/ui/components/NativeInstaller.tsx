@@ -48,7 +48,7 @@ const installers: { [os in browser.runtime.PlatformOs]?: InstallerOs } = {
 			// "arm": {
 			// 	file: "firefox-webserial-linux-arm",
 			// },
-			"aarch64": {
+			aarch64: {
 				file: "firefox-webserial-linux-arm64",
 			},
 		},

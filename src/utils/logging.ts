@@ -33,7 +33,7 @@ export function debugLog(module: ModuleType, type: string, ...message: any[]) {
 		`color: ${colors[module][0]}; font-weight: bold`,
 		module,
 		type,
-		...message
+		...message,
 	)
 }
 
@@ -45,7 +45,7 @@ export function debugRx(module: ModuleType, data: Uint8Array | object) {
 			`color: ${colors[module][1]}; font-weight: bold`,
 			module,
 			data.length,
-			buf2hex(data)
+			buf2hex(data),
 		)
 	} else {
 		log(
@@ -53,7 +53,7 @@ export function debugRx(module: ModuleType, data: Uint8Array | object) {
 			getNow(),
 			`color: ${colors[module][1]}; font-weight: bold`,
 			module,
-			data
+			data,
 		)
 	}
 }
@@ -66,7 +66,7 @@ export function debugTx(module: ModuleType, data: Uint8Array | object) {
 			`color: ${colors[module][2]}; font-weight: bold`,
 			module,
 			data.length,
-			buf2hex(data)
+			buf2hex(data),
 		)
 	} else {
 		log(
@@ -74,7 +74,7 @@ export function debugTx(module: ModuleType, data: Uint8Array | object) {
 			getNow(),
 			`color: ${colors[module][2]}; font-weight: bold`,
 			module,
-			data
+			data,
 		)
 	}
 }

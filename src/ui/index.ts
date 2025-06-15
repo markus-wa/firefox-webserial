@@ -7,7 +7,7 @@ import { PortChooser } from "./pages/PortChooser"
 
 async function renderAndWait<T>(
 	component: any,
-	message: PopupRequest
+	message: PopupRequest,
 ): Promise<T> {
 	return await new Promise((resolve, reject) => {
 		const element = React.createElement(component, {
@@ -48,7 +48,7 @@ export async function startUI() {
 
 		try {
 			const message: PopupRequest = JSON.parse(
-				atob(url.searchParams.get("message"))
+				atob(url.searchParams.get("message")),
 			)
 			const response = await handler[message.action](message)
 			await resolvePromise(id, response)

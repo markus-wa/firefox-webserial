@@ -4,7 +4,7 @@ const promises: {
 	[key: string]: [
 		(value: unknown) => void,
 		(reason?: any) => void,
-		NodeJS.Timeout?
+		NodeJS.Timeout?,
 	]
 } = {}
 

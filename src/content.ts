@@ -21,7 +21,7 @@ function wrapPromise<T>(promise: Promise<T>): Promise<T> {
 				.catch((reason) => {
 					reject(cloneInto(reason, window))
 				})
-		}, window.wrappedJSObject)
+		}, window.wrappedJSObject),
 	)
 }
 
@@ -40,5 +40,5 @@ window.WebSerialPolyfill = {
 window.wrappedJSObject.WebSerialPolyfill = cloneInto(
 	window.WebSerialPolyfill,
 	window,
-	{ cloneFunctions: true }
+	{ cloneFunctions: true },
 )

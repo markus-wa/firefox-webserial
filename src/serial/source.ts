@@ -11,7 +11,7 @@ export class SerialSource implements UnderlyingSource<Uint8Array> {
 
 	public constructor(
 		private transport_: SerialTransport,
-		private onClose_: () => void
+		private onClose_: () => void,
 	) {
 		// @ts-ignore
 		this.type = "bytes"

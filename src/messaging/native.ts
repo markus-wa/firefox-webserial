@@ -87,7 +87,7 @@ async function getNativePort(): Promise<browser.runtime.Port> {
 				debugLog(
 					"NATIVE",
 					"onMessage",
-					`Connection successful: native v${version} @ port ${wsPort}`
+					`Connection successful: native v${version} @ port ${wsPort}`,
 				)
 				await setNativeParams({
 					state: "connected",
@@ -105,7 +105,7 @@ async function getNativePort(): Promise<browser.runtime.Port> {
 			if (message.error !== undefined)
 				await rejectPromise(
 					message.id,
-					new Error(`Native error ${message.error}`)
+					new Error(`Native error ${message.error}`),
 				)
 		})
 

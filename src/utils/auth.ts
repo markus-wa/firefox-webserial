@@ -11,7 +11,7 @@ export async function readOriginAuth(origin: string): Promise<SerialPortAuth> {
 
 export async function writeOriginAuth(
 	origin: string,
-	port: SerialPortData
+	port: SerialPortData,
 ): Promise<void> {
 	let { originAuth } = await browser.storage.local.get("originAuth")
 	if (!originAuth) originAuth = {}

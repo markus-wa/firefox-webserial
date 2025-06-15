@@ -7,7 +7,7 @@ export class SerialSink implements UnderlyingSink<Uint8Array> {
 
 	public constructor(
 		private transport_: SerialTransport,
-		private onClose_: () => void
+		private onClose_: () => void,
 	) {
 		debugLog("STREAM", "sink", "CONSTRUCTOR")
 		this.onDisconnect = this.onDisconnect.bind(this)
@@ -28,7 +28,7 @@ export class SerialSink implements UnderlyingSink<Uint8Array> {
 
 	async write(
 		chunk: Uint8Array,
-		controller: WritableStreamDefaultController
+		controller: WritableStreamDefaultController,
 	): Promise<void> {
 		try {
 			await this.transport_.sendData(chunk)

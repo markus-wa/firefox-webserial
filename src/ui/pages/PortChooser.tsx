@@ -52,7 +52,7 @@ export class PortChooser extends React.Component<
 			}
 			const ports = await listAvailablePorts(
 				this.props.origin,
-				this.props.options
+				this.props.options,
 			)
 			this.setState({ params, ports })
 		} catch (error) {
@@ -106,7 +106,7 @@ export class PortChooser extends React.Component<
 					{this.state.ports && (
 						<List
 							items={this.state.ports.map(
-								(port) => port.description || port.name
+								(port) => port.description || port.name,
 							)}
 							active={this.state.active}
 							onClick={this.handleItemClick}

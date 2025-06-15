@@ -1,7 +1,7 @@
 import { BackgroundRequest } from "../utils/types"
 
 export async function sendToBackground(
-	message: BackgroundRequest
+	message: BackgroundRequest,
 ): Promise<any> {
 	if (
 		browser?.runtime?.getBackgroundPage &&

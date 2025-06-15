@@ -14,14 +14,14 @@ export async function getPorts(origin: string): Promise<SerialPortData[]> {
 
 export async function requestPort(
 	origin: string,
-	options?: SerialPortRequestOptions
+	options?: SerialPortRequestOptions,
 ): Promise<SerialPortData> {
 	return await sendToBackground({ action: "requestPort", origin, options })
 }
 
 export async function listAvailablePorts(
 	origin?: string,
-	options?: SerialPortRequestOptions
+	options?: SerialPortRequestOptions,
 ): Promise<SerialPortData[]> {
 	return await sendToBackground({
 		action: "listAvailablePorts",
@@ -36,14 +36,14 @@ export async function clearAuthKeyCache(): Promise<void> {
 
 export async function choosePort(
 	origin: string,
-	options?: SerialPortRequestOptions
+	options?: SerialPortRequestOptions,
 ): Promise<SerialPortData> {
 	return await sendToPopup({ action: "choosePort", origin, options })
 }
 
 export async function extendPromise(
 	id: string,
-	timeoutMs: number
+	timeoutMs: number,
 ): Promise<void> {
 	await sendToBackground({ action: "extendPromise", id, timeoutMs })
 }

@@ -57,7 +57,7 @@ export class SerialPort extends EventTarget {
 			}),
 			{
 				highWaterMark: this.options_?.bufferSize ?? 255,
-			}
+			},
 		)
 		return this.readable_
 	}
@@ -71,7 +71,7 @@ export class SerialPort extends EventTarget {
 			}),
 			new ByteLengthQueuingStrategy({
 				highWaterMark: this.options_?.bufferSize ?? 255,
-			})
+			}),
 		)
 		return this.writable_
 	}
@@ -92,12 +92,12 @@ export class SerialPort extends EventTarget {
 			"options:",
 			options,
 			"transport:",
-			this.transport_
+			this.transport_,
 		)
 		if (this.transport_ !== null && this.transport_.connected)
 			throw new DOMException(
 				"The port is already open.",
-				"InvalidStateError"
+				"InvalidStateError",
 			)
 		if (
 			options.dataBits !== undefined &&
@@ -111,7 +111,7 @@ export class SerialPort extends EventTarget {
 			throw new TypeError("Requested number of stop bits must be 1 or 2.")
 		if (options.bufferSize !== undefined && options.bufferSize <= 0)
 			throw new TypeError(
-				`Requested buffer size (${options.bufferSize} bytes) must be greater than zero.`
+				`Requested buffer size (${options.bufferSize} bytes) must be greater than zero.`,
 			)
 
 		// close the socket if it's open somehow
@@ -128,14 +128,14 @@ export class SerialPort extends EventTarget {
 			this.transport_ = new SerialWebSocket()
 			this.transport_.addEventListener(
 				"disconnect",
-				this.onTransportDisconnect
+				this.onTransportDisconnect,
 			)
 			await this.transport_.connect()
 			await this.transport_.send(
 				pack(`<B${this.port_.authKey.length + 1}s`, [
 					SerialOpcode.WSM_PORT_OPEN,
 					this.port_.authKey,
-				])
+				]),
 			)
 
 			// configure port options
@@ -147,10 +147,10 @@ export class SerialPort extends EventTarget {
 					options.parity === "even"
 						? 2
 						: options.parity === "odd"
-						? 1
-						: 0,
+							? 1
+							: 0,
 					options.stopBits,
-				])
+				]),
 			)
 
 			// indicate that the client is ready
@@ -171,7 +171,7 @@ export class SerialPort extends EventTarget {
 		if (this.transport_ === null)
 			throw new DOMException(
 				"The port is already closed.",
-				"InvalidStateError"
+				"InvalidStateError",
 			)
 
 		const promises = []
@@ -186,18 +186,18 @@ export class SerialPort extends EventTarget {
 			this.setSignals({
 				dataTerminalReady: false,
 				requestToSend: false,
-			})
+			}),
 		)
 
 		// close & disconnect the port
 		await catchIgnore(
-			this.transport_.send(pack("<B", [SerialOpcode.WSM_PORT_CLOSE]))
+			this.transport_.send(pack("<B", [SerialOpcode.WSM_PORT_CLOSE])),
 		)
 
 		// remove ondisconnect listener, as it would call close() again
 		this.transport_.removeEventListener(
 			"disconnect",
-			this.onTransportDisconnect
+			this.onTransportDisconnect,
 		)
 
 		debugLog("SERIAL", "close", "Disconnecting transport...")
@@ -226,23 +226,23 @@ export class SerialPort extends EventTarget {
 			debugLog(
 				"SERIAL",
 				"signals",
-				`DTR: ${newDTR ?? oldDTR}, RTS: ${newRTS ?? oldRTS}`
+				`DTR: ${newDTR ?? oldDTR}, RTS: ${newRTS ?? oldRTS}`,
 			)
 			await this.transport_.send(
 				pack("<BBB", [
 					SerialOpcode.WSM_SET_SIGNALS,
 					newDTR ?? oldDTR,
 					newRTS ?? oldRTS,
-				])
+				]),
 			)
 		}
 		if (newBRK !== undefined && oldBRK !== newBRK) {
 			await this.transport_.send(
 				pack("<B", [
-					newBRK ?? oldBRK
+					(newBRK ?? oldBRK)
 						? SerialOpcode.WSM_START_BREAK
 						: SerialOpcode.WSM_END_BREAK,
-				])
+				]),
 			)
 		}
 
@@ -284,7 +284,7 @@ class Serial extends EventTarget {
 
 	async requestPort(options?: SerialPortRequestOptions): Promise<SerialPort> {
 		const port = await this.translateError(
-			WebSerialPolyfill.requestPort(options)
+			WebSerialPolyfill.requestPort(options),
 		)
 		return new SerialPort(port)
 	}
